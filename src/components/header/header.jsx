@@ -13,7 +13,7 @@ class AppHeader extends React.Component {
     return (
       <header className={headerStyles.header}>
         <nav className={headerStyles.menuBlock}>
-          <ul className={headerStyles.menu}>
+          <ul className={`${headerStyles.menu} text text_type_main-small`}>
             <li className={headerStyles.menuItem}>
               <MenuButton
                 icon={<BurgerIcon type="primary" />}

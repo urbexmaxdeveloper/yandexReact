@@ -1,0 +1,8 @@
+.details {
+  justify-content: center;
+}
+.cost_block {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}

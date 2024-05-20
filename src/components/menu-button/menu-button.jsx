@@ -4,7 +4,7 @@ const MenuButton = ({ icon, label }) => {
   return (
     <div className={menuStyles.menuButton}>
       {icon}
-      <span >{label}</span>
+      <span>{label}</span>
     </div>
   );
 };
