@@ -18,3 +18,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.cost_block{
+  display: flex;
+   gap: 8px;
+   float: right;
+}

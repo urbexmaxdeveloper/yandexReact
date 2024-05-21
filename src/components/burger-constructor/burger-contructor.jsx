@@ -24,13 +24,11 @@ export default function BurgerConstructor() {
         <BurgerComponent component={filteredSauces[2]} isDrag={true} />
       </div>
       <BurgerComponent component={filteredBuns[0]} type="bottom" />
-      <div style={{ float: "right" }}>
-        <p style={{ display: "flex", gap: "8px" }}>
+      <div className={styles.cost_block}>
           <Cost cost="600" />
           <Button htmlType="button" type="primary" size="medium">
             Оформить заказ
-          </Button>
-        </p>
+          </Button>      
       </div>
     </>
   );
