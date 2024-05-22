@@ -30,7 +30,7 @@
   justify-content: end;
   margin-right: 250px;
 }
-.menuItem>a {
+.menuItem > a {
   text-decoration: none;
   color: white;
 }
