@@ -1,10 +1,20 @@
+import { ingredientDetails } from "../utils/prop-types";
 import IngredientGroup from "./ingredient-group/ingredient-group";
 import PropTypes from "prop-types";
+import { useMemo } from "react";
 
 export default function BurgerIngredients({ data }) {
-  const filteredBuns = data.data.filter((item) => item.type === "bun");
-  const filteredSauces = data.data.filter((item) => item.type === "sauce");
-  const filteredMains = data.data.filter((item) => item.type === "main");
+  const filteredBuns = useMemo(() => {
+    return data.filter((item) => item.type === "bun");
+  }, [data]);
+
+  const filteredSauces = useMemo(() => {
+    return data.filter((item) => item.type === "sauce");
+  }, [data]);
+
+  const filteredMains = useMemo(() => {
+    return data.filter((item) => item.type === "main");
+  }, [data]);
 
   return (
     <>
@@ -14,21 +24,7 @@ export default function BurgerIngredients({ data }) {
     </>
   );
 }
+
 BurgerIngredients.propTypes = {
-  data: PropTypes.shape({
-    data: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-      })
-    ),
-  }),
+  data: PropTypes.arrayOf(ingredientDetails),
 };

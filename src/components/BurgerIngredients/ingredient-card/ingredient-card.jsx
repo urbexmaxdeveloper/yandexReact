@@ -4,6 +4,7 @@ import { useState } from "react";
 import Modal from "../../Modal/modal";
 import IngredientDetails from "../../IngredientDetails/ingredient-details";
 import PropTypes from "prop-types";
+import { cardDescription } from "../../utils/prop-types";
 
 export default function IngredientCard({ ingredient }) {
   const [showModal, setShowModal] = useState({
@@ -57,10 +58,5 @@ export default function IngredientCard({ ingredient }) {
 }
 
 IngredientCard.propTypes = {
-  ingredient: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }),
+  ingredient: cardDescription.isRequired
 };

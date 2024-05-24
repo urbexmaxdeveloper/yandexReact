@@ -5,26 +5,26 @@ import mainPageStyles from "./App.module.css";
 import BurgerIngredients from "../BurgerIngredients/burger-ingredients";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerConstructor from "../BurgerConstructor/burger-contructor";
-const apiUrl = "https://norma.nomoreparties.space/api/ingredients";
+import { getIngredients } from "../utils/burger-api";
+
 export default function App() {
   const [current, setCurrent] = React.useState("bun");
   const [data, setData] = useState(null);
+  const [isFetching, setFetchData] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(apiUrl);
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
+    getIngredients()
+      .then((res) => {
+        if (res.success) {
+          setData(res.data);
+          setFetchData(false);
+        } else {
+          setData(null);
         }
-        const responseData = await response.json();
-        setData(responseData);
-      } catch (error) {
-        throw new Error("Failed to fetch data");
-      }
-    };
-
-    fetchData();
+      })
+      .catch(() => {
+        throw new Error("Failed get ingridients");
+      });
   }, []);
 
   return (
@@ -50,12 +50,18 @@ export default function App() {
           </div>
         </div>
         <div className={mainPageStyles.container}>
-          <div className={mainPageStyles.container_ingridients}>
-            {data && <BurgerIngredients data={data} />}
-          </div>
-          <div className={mainPageStyles.container_constructor}>
-            {data && <BurgerConstructor data={data} />}
-          </div>
+          {!isFetching ? (
+            <>
+              <div className={mainPageStyles.container_ingridients}>
+                {data && <BurgerIngredients data={data} />}
+              </div>
+              <div className={mainPageStyles.container_constructor}>
+                {data && <BurgerConstructor data={data} />}
+              </div>
+            </>
+          ) : (
+            <p>Нет данных</p>
+          )}
         </div>
       </main>
     </div>

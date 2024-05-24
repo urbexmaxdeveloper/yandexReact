@@ -29,7 +29,6 @@ export default function Modal({
     };
   }, [escHandler]);
   if (!isOpen) return null;
-
   return createPortal(
     <>
       <div

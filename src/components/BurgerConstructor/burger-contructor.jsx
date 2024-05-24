@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-contructor.module.css";
 import Cost from "./cost/cost";
@@ -6,15 +6,25 @@ import BurgerComponent from "./burger-component/burger-component";
 import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import PropTypes from "prop-types";
+import { ingredientDetails } from "../utils/prop-types";
 
 export default function BurgerConstructor({ data }) {
-  const filteredBuns = data.data.filter((item) => item.type === "bun");
-  const filteredSauces = data.data.filter((item) => item.type === "sauce");
-  const filteredMains = data.data.filter((item) => item.type === "main");
+  const filteredBuns = useMemo(() => {
+    return data.filter((item) => item.type === "bun");
+  }, [data]);
+
+  const filteredSauces = useMemo(() => {
+    return data.filter((item) => item.type === "sauce");
+  }, [data]);
+
+  const filteredMains = useMemo(() => {
+    return data.filter((item) => item.type === "main");
+  }, [data]);
   const [showModal, setShowModal] = useState(false);
   const onModalClosed = () => {
     setShowModal(false);
   };
+  
   if (data.length === 0) {
     return null;
   }
@@ -57,20 +67,5 @@ export default function BurgerConstructor({ data }) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.shape({
-    data: PropTypes.arrayOf(
-      PropTypes.shape({
-        _id: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        type: PropTypes.oneOf(["bun", "sauce", "main"]).isRequired,
-        proteins: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        carbohydrates: PropTypes.number.isRequired,
-        price: PropTypes.number.isRequired,
-        image: PropTypes.string.isRequired,
-        image_mobile: PropTypes.string.isRequired,
-        image_large: PropTypes.string.isRequired,
-      })
-    ),
-  }),
+  data: PropTypes.arrayOf(ingredientDetails),
 };
