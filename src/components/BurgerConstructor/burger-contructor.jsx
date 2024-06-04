@@ -7,8 +7,10 @@ import Modal from "../Modal/modal";
 import OrderDetails from "../OrderDetails/order-details";
 import PropTypes from "prop-types";
 import { ingredientDetails } from "../utils/prop-types";
+import { useSelector } from "react-redux";
 
-export default function BurgerConstructor({ data }) {
+export default function BurgerConstructor() {
+  const data = useSelector((store) => store.ingredients.ingredients);
   const filteredBuns = useMemo(() => {
     return data.filter((item) => item.type === "bun");
   }, [data]);
@@ -24,7 +26,7 @@ export default function BurgerConstructor({ data }) {
   const onModalClosed = () => {
     setShowModal(false);
   };
-  
+
   if (data.length === 0) {
     return null;
   }

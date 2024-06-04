@@ -2,8 +2,10 @@ import { ingredientDetails } from "../utils/prop-types";
 import IngredientGroup from "./ingredient-group/ingredient-group";
 import PropTypes from "prop-types";
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
 
-export default function BurgerIngredients({ data }) {
+export default function BurgerIngredients() {
+  const data = useSelector((store) => store.ingredients.ingredients);
   const filteredBuns = useMemo(() => {
     return data.filter((item) => item.type === "bun");
   }, [data]);
