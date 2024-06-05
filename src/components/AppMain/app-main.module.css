@@ -14,18 +14,14 @@
   gap: 50px;
   float: left;
   flex: 49%;
-  height: 600px;
-  overflow-y: scroll;
+  height: 6px;
   margin: 0px 10px 10px 10px;
 }
 
 .container_constructor {
   box-sizing: border-box;
+  margin-top: 120px;
   padding: 15px;
   float: right;
   flex: 49%;
-}
-
-.container_ingridients_header {
-  margin: 40px 0px 20px 0px;
 }

@@ -1,0 +1,29 @@
+.element {
+  display: flex;
+  background: #2f2f37;
+  max-width: 536px;
+  width: 100%;
+  height: 70px;
+  color: #f2f2f3;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.positionTop {
+  border-radius: 88px 88px 40px 40px;
+}
+
+.positionBottom {
+  border-radius: 40px 40px 88px 88px;
+}
+
+.elementRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.borderClass {
+  box-shadow: 0px 0px 0px 2px rgba(76, 76, 255, 1);
+}

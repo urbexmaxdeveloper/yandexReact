@@ -5,8 +5,8 @@ const checkResponse = (res) => {
   return res.json();
 };
 
-const getData = (url, options) => {
+const request = (url, options) => {
   return fetch(url, options).then(checkResponse);
 };
 
-export { checkResponse, getData };
+export { checkResponse, request };
