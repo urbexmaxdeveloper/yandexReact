@@ -11,12 +11,7 @@ const initialState = {
 export const getIngredients = createAsyncThunk(
   "ingredients/getIngredients",
   async () => {
-    try {
-      const response = await request(`${normaApi}${getIngredientsUrl}`);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+    return (await request(`${normaApi}${getIngredientsUrl}`)).data;
   }
 );
 

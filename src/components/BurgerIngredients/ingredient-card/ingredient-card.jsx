@@ -33,7 +33,7 @@ export default function IngredientCard({ ingredient }) {
   });
 
   useEffect(() => {
-    if (selectedBun && ingredient.value === "bun") {
+    if (selectedBun && ingredient.type === "bun") {
       setCount(selectedBun._id === ingredient._id ? 2 : 0);
     } else {
       setCount(
