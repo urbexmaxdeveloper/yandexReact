@@ -1,0 +1,14 @@
+.constructorItem {
+  display: flex;
+  align-items: center;
+  cursor: grab;
+  margin-top: 8px;
+}
+
+.constructorItem:last-child {
+  margin-bottom: 0;
+}
+
+.withOpacity {
+  opacity: 0.7;
+}

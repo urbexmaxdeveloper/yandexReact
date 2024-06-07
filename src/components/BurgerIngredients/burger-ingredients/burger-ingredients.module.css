@@ -1,0 +1,19 @@
+.ingredientsList {
+  height: 650px;
+  overflow-y: auto;
+  width: 600px;
+}
+
+.ingredientsMenu {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.burgerIngredients {
+  height: 100%;
+  width: calc(50% - 20px);
+}
+
+.tabContainer {
+  display: flex;
+}

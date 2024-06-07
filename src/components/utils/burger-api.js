@@ -1,12 +1,12 @@
-import { normaApi } from "./config";
- 
-export const getIngredients = () => {
-    return fetch(`${normaApi}/ingredients`)
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject('Error get ingridients');
-    });
-  };
-  
+const checkResponse = (res) => {
+  if (!res.ok) {
+    throw new Error(`Error get data`);
+  }
+  return res.json();
+};
+
+const request = (url, options) => {
+  return fetch(url, options).then(checkResponse);
+};
+
+export { checkResponse, request };
