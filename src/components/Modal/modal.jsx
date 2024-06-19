@@ -1,60 +1,50 @@
-import { useEffect, useCallback } from "react";
-import { createPortal } from "react-dom";
-import styles from "./modal.module.css";
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import modalStyles from "./modal.module.css";
 import PropTypes from "prop-types";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { createPortal } from "react-dom";
+import { useCallback, useEffect } from "react";
 import ModalOverlay from "../ModalOverlay/modal-overlay";
 
-export default function Modal({
-  children,
-  title,
-  isOpen,
-  setIsModalOpen,
-  height,
-  width,
-}) {
-  const escHandler = useCallback(
-    (ev) => {
-      if (ev.key === "Escape") {
-        setIsModalOpen(false);
+const Modal = ({ children, title, onClose }) => {
+  const closeByEscape = useCallback(
+    (e) => {
+      if (e.key === "Escape") {
+        onClose();
       }
     },
-    [setIsModalOpen]
+    [onClose]
   );
 
   useEffect(() => {
-    document.addEventListener("keydown", escHandler, false);
+    document.addEventListener("keydown", closeByEscape);
+
     return () => {
-      document.removeEventListener("keydown", escHandler, false);
+      document.addEventListener("keydown", closeByEscape);
     };
-  }, [escHandler]);
-  if (!isOpen) return null;
+  }, [onClose, closeByEscape]);
+
   return createPortal(
-    <>
-      <div
-        className={`${styles.modal}`}
-        style={{ height: `${height ?? 600}px`, width: `${width ?? 600}px` }}
-      >
-        <div className={styles.title}>
-          <p className="text text_type_main-large">{title}</p>
-          <button
-            className={styles.closeBtn}
-            onClick={() => setIsModalOpen(false)}
-          >
-            <CloseIcon />
-          </button>
-        </div>
-        <div className={styles.body}>{children}</div>
+    <div className={modalStyles.modal}>
+      <div className={`${modalStyles.body}`}>
+        <header className={`${modalStyles.heading} mr-10 ml-10`}>
+          <h2 className={`${modalStyles.title} text text_type_main-large`}>
+            {title}
+          </h2>
+          <div className={modalStyles.closeBtn}>
+            <CloseIcon onClick={onClose} type="primary" />
+          </div>
+        </header>
+        <main className={modalStyles.content}>{children}</main>
       </div>
-      <ModalOverlay onModalClosed={setIsModalOpen} />
-    </>,
-    document.querySelector("#modal-root")
+      <ModalOverlay onClose={onClose} />
+    </div>,
+    document.getElementById("modal")
   );
-}
+};
 
 Modal.propTypes = {
-  children: PropTypes.element.isRequired,
   title: PropTypes.string,
-  isOpen: PropTypes.bool.isRequired,
-  setIsModalOpen: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
+
+export default Modal;

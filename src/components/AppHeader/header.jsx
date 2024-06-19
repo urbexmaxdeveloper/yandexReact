@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import MenuButton from "./menu-button/menu-button";
 import headerStyles from "./header.module.css";
+import { ROUTE } from "../utils/constants";
 
 export default function AppHeader() {
   return (
@@ -13,31 +14,28 @@ export default function AppHeader() {
       <nav className={headerStyles.menuBlock}>
         <ul className={`${headerStyles.menu} text text_type_main-small`}>
           <li className={headerStyles.menuItem}>
-            <a href="#">
-              <MenuButton
-                icon={<BurgerIcon type="primary" />}
-                label="Конструктор"
-              />
-            </a>
+            <MenuButton
+              icon={BurgerIcon}
+              text="Конструктор"
+              link={ROUTE.main}
+            />
           </li>
           <li className={headerStyles.menuItem}>
-            <a href="#">
-              <MenuButton
-                icon={<ListIcon type="primary" />}
-                label="Лента заказов"
-              />
-            </a>
+            <MenuButton
+              icon={ListIcon}
+              text="Лента заказов"
+              link={ROUTE.mainLayout.feed}
+            />
           </li>
           <li className={`${headerStyles.menuItem} pl-30`}>
             <Logo />
           </li>
           <li className={`${headerStyles.menuItem} pl-25`}>
-            <a href="#">
-              <MenuButton
-                icon={<ProfileIcon type="primary" />}
-                label="Личный кабинет"
-              />
-            </a>
+            <MenuButton
+              icon={ProfileIcon}
+              text="Личный кабинет"
+              link={ROUTE.userProfile.profile}
+            />
           </li>
         </ul>
       </nav>

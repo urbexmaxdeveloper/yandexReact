@@ -1,23 +1,15 @@
-.root {
-  text-align: center;
-}
-.image {
-  width: 480px;
-  height: 240px;
-  margin-bottom: 16px;
-}
-
-.nutritions {
-  list-style-type: none;
-  display: flex;
-  margin-top: 32px;
-  padding: 0;
-  justify-content: center;
-  column-gap: 50px;
-}
-.nut_item {
+.details {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  row-gap: 10px;
+  align-items: center;
+  text-align: center;
+}
+.detailsList {
+  display: flex;
+  gap: 20px;
+  list-style-type: none;
+}
+
+.ingredientName {
+  text-align: center;
 }

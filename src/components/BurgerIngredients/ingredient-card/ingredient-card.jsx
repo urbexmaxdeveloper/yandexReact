@@ -1,20 +1,20 @@
+import { useState, useEffect, useCallback } from "react";
+import { useDrag } from "react-dnd";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./ingredient-card.module.css";
-import { useState, useEffect } from "react";
-import Modal from "../../Modal/modal";
-import IngredientDetails from "../../IngredientDetails/ingredient-details";
-import { useDrag } from "react-dnd";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector } from "react-redux";
+
+import styles from "./ingredient-card.module.css";
 import ingredientsPropTypes from "../../utils/prop-types";
 
 export default function IngredientCard({ ingredient }) {
   const [count, setCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
-
+  const location = useLocation();
   const { name, price, image } = ingredient;
 
   const selectedBun = useSelector(
@@ -32,7 +32,7 @@ export default function IngredientCard({ ingredient }) {
     }),
   });
 
-  useEffect(() => {
+  const updateCount = useCallback(() => {
     if (selectedBun && ingredient.type === "bun") {
       setCount(selectedBun._id === ingredient._id ? 2 : 0);
     } else {
@@ -42,43 +42,34 @@ export default function IngredientCard({ ingredient }) {
     }
   }, [selectedBun, selectedIngredients, ingredient]);
 
-  const openModalHandler = () => {
-    setShowModal(true);
-  };
-
-  const closeModalHandler = () => {
-    setShowModal(false);
-  };
+  useEffect(() => {
+    updateCount();
+  }, [updateCount]);
 
   return (
-    <div className={styles.root}>
+    <Link
+      to={`/ingredients/${ingredient._id}`}
+      state={{ background: location }}
+      className={styles.link}
+    >
       <div
-        className={`${styles.details} ${isDrag ? styles.dragging : ""}`}
+        className={styles.root}
         ref={dragRef}
-        onClick={openModalHandler}
+        onClick={() => setShowModal(true)}
       >
-        <img src={image} alt={name} />
-        <div className={styles.cost_block}>
-          <Counter count={count} size="default" />
-          <p className="text text_type_main-default">{price}</p>
-          <CurrencyIcon type="primary" />
+        <div className={`${styles.details} ${isDrag ? styles.dragging : ""}`}>
+          <img src={image} alt={name} />
+          <div className={styles.cost_block}>
+            <Counter count={count} size="default" />
+            <p className="text text_type_main-default">{price}</p>
+            <CurrencyIcon type="primary" />
+          </div>
+          <p className="text text_type_main-default" align="center">
+            {name}
+          </p>
         </div>
-        <p className="text text_type_main-default" align="center">
-          {name}
-        </p>
       </div>
-      {showModal && (
-        <Modal
-          title="Детали ингредиента"
-          isOpen={showModal}
-          setIsModalOpen={closeModalHandler}
-          width={720}
-          height={539}
-        >
-          <IngredientDetails ingredient={ingredient} />
-        </Modal>
-      )}
-    </div>
+    </Link>
   );
 }
 
