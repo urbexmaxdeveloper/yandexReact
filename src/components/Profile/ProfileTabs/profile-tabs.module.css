@@ -1,0 +1,29 @@
+.profileTabs {
+  max-width: 320px;
+  list-style-type: none;
+}
+
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  color: var(--text-inactive-color);
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.5;
+  font-family: var(--font-family);
+  cursor: pointer;
+  padding-left: 0px;
+}
+
+.NavLink {
+  text-decoration: none;
+}
+.caption {
+  padding-left: 40px;
+}

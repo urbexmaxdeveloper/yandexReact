@@ -1,17 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { request } from "../../../utils/burger-api";
-import { getIngredientsUrl, normaApi } from "../../../utils/config";
+import { API } from "../../../utils/constants";
 
 const initialState = {
   ingredients: [],
-  loading: false,
-  error: false,
+  getIngredientsRequest: false,
+  getIngredientsFailed: false,
 };
 
 export const getIngredients = createAsyncThunk(
   "ingredients/getIngredients",
   async () => {
-    return (await request(`${normaApi}${getIngredientsUrl}`)).data;
+    const response = await request(
+      `${API.baseUrl}${API.endpoints.ingredients}`
+    );
+    return response.data;
   }
 );
 
@@ -22,20 +25,19 @@ export const ingredientsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getIngredients.pending, (state) => {
-        state.loading = true;
-        state.error = false;
+        state.getIngredientsRequest = true;
       })
       .addCase(getIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload;
-        state.loading = false;
-        state.error = false;
+        state.getIngredientsRequest = false;
+        state.getIngredientsFailed = false;
       })
       .addCase(getIngredients.rejected, (state) => {
-        state.loading = false;
-        state.error = true;
+        state.getIngredientsRequest = false;
+        state.getIngredientsFailed = true;
       });
   },
 });
 
-export const { setIngredients } = ingredientsSlice.actions;
+export const {} = ingredientsSlice.actions;
 export default ingredientsSlice.reducer;

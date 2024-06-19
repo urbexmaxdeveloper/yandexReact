@@ -1,20 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { normaApi, postOrderUrl } from "../../../utils/config";
 import { request } from "../../../utils/burger-api";
+import { API } from "../../../utils/constants";
 
 const initialState = {
   orderList: null,
-  loading: false,
-  error: false,
+  postRequest: false,
+  postFailed: false,
 };
 
 export const handleAndPlaceOrder = createAsyncThunk(
   "postOrder/handleAndPlaceOrder",
   async (order) => {
-    const response = await request(`${normaApi}${postOrderUrl}`, {
+    const response = await request(`${API.baseUrl}${API.endpoints.order}`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-type": "application/json",
       },
       body: JSON.stringify({ ingredients: order.map((item) => item._id) }),
     });
@@ -29,19 +29,20 @@ export const orderPostSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(handleAndPlaceOrder.pending, (state) => {
-        state.loading = true;
-        state.error = false;
+        state.postRequest = true;
       })
       .addCase(handleAndPlaceOrder.fulfilled, (state, action) => {
         state.orderList = action.payload;
-        state.loading = false;
-        state.error = false;
+        state.postRequest = false;
+        state.postFailed = false;
       })
+
       .addCase(handleAndPlaceOrder.rejected, (state) => {
-        state.loading = false;
-        state.error = true;
+        state.postRequest = false;
+        state.postFailed = true;
       });
   },
 });
 
+export const {} = orderPostSlice.actions;
 export default orderPostSlice.reducer;
