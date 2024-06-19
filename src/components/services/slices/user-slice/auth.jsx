@@ -4,15 +4,11 @@ import { fetchWithRefresh, request } from "../../../utils/burger-api";
 import { API } from "../../../utils/constants";
 
 export const cookies = new Cookies();
-
 export const userRegister = createAsyncThunk(
   "user/userRegister",
   async (form) => {
     const response = await request(`${API.baseUrl}${API.endpoints.register}`, {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify(form),
     });
     if (response.success) {
@@ -28,9 +24,6 @@ export const userRegister = createAsyncThunk(
 export const userLogin = createAsyncThunk("user/userLogin", async (form) => {
   const response = await request(`${API.baseUrl}${API.endpoints.login}`, {
     method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
     body: JSON.stringify(form),
   });
   if (response.success) {
@@ -45,9 +38,6 @@ export const userLogin = createAsyncThunk("user/userLogin", async (form) => {
 export const userLogout = createAsyncThunk("user/userLogout", async () => {
   const response = await request(`${API.baseUrl}${API.endpoints.logout}`, {
     method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
     body: JSON.stringify({ token: cookies.get("refreshToken") }),
   });
   if (response.success) {
@@ -61,9 +51,6 @@ export const forgotPassword = async (data) => {
     `${API.baseUrl}${API.endpoints.forgotPassword}`,
     {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify({ email: data }),
     }
   );
@@ -76,9 +63,6 @@ export const resetPassword = async (form) => {
     `${API.baseUrl}${API.endpoints.resetPassword}`,
     {
       method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
       body: JSON.stringify({ password: form.password, token: form.token }),
     }
   );
@@ -96,7 +80,6 @@ export const checkUserAuth = createAsyncThunk(
       {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
           authorization: "Bearer " + cookies.get("accessToken"),
         },
       }
@@ -113,7 +96,6 @@ export const editUser = createAsyncThunk("user/editUserData", async (data) => {
     {
       method: "PATCH",
       headers: {
-        "Content-type": "application/json",
         authorization: "Bearer " + cookies.get("accessToken"),
       },
       body: JSON.stringify(data),

@@ -6,9 +6,18 @@ const checkResponse = (response) => {
     ? response.json()
     : response.json().then((err) => Promise.reject(err));
 };
+const request = (url, options = {}) => {
+  const defaultHeaders = {
+    "Content-Type": "application/json",
+    ...options.headers,
+  };
 
-const request = (url, options) => {
-  return fetch(url, options).then(checkResponse);
+  const defaultOptions = {
+    headers: defaultHeaders,
+    ...options,
+  };
+
+  return fetch(url, defaultOptions).then(checkResponse);
 };
 
 export { checkResponse, request };
