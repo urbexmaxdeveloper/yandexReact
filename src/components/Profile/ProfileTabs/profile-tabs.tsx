@@ -1,13 +1,15 @@
 import styles from "./profile-tabs.module.css";
 import { ROUTE } from "../../utils/constants";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { userLogout } from "../../services/slices/user-slice/auth";
 import { ProfileTab } from "./ProfileTab/profile-tab";
 import { useDispatchHook } from "../../services/store/hooks";
+import { FC } from "react";
 
-export const ProfileTabs = () => {
+export const ProfileTabs: FC = () => {
   const dispatch = useDispatchHook();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = (): void => {
     dispatch(userLogout())
@@ -16,8 +18,8 @@ export const ProfileTabs = () => {
   };
 
   const profileTabs = [
-    { name: "Профиль", route: ROUTE.userProfile.profile },
-    { name: "История заказов", route: ROUTE.userProfile.orders },
+    { id: 1, name: "Профиль", route: ROUTE.userProfile.profile },
+    { id: 2, name: "История заказов", route: ROUTE.userProfile.orders },
   ];
 
   return (
@@ -25,7 +27,7 @@ export const ProfileTabs = () => {
       <ul className={styles.profileTabs}>
         {profileTabs.map((tab) => (
           <ProfileTab
-            key={tab.route}
+            key={tab.id}
             route={tab.route}
             className="pt-3 pb-3"
             text={tab.name}
@@ -37,11 +39,13 @@ export const ProfileTabs = () => {
           </button>
         </li>
       </ul>
-      <div className={styles.caption}>
-        <p className="text text_type_main-default text_color_inactive">
-          В этом разделе вы можете <br /> изменить свои персональные данные
-        </p>
-      </div>
+      <p
+        className={`${styles.caption} text text_type_main-default text_color_inactive`}
+      >
+        {location.pathname.endsWith(ROUTE.userProfile.profile)
+          ? "В этом разделе вы можете изменить свои персональные данные"
+          : "В этом разделе вы можете посмотреть свою историю заказов"}
+      </p>
     </div>
   );
 };
