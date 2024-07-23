@@ -1,6 +1,5 @@
 import { FC, useEffect } from "react";
 import styles from "./profile-orders.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import {
   wsUserOrdConnect as connect,
   wsUserOrdDisconnect as disconnect,
@@ -9,9 +8,10 @@ import { OrderFeed } from "../../OrderFeed/order-feed";
 import { WEBSOCKET_API } from "../../utils/constants";
 import { cookies } from "../../services/slices/user-slice/auth";
 import { RootState } from "../../services/store/store";
+import { useDispatchHook, useSelectorHook } from "../../services/store/hooks";
 
 export const ProfileOrders: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatchHook();
 
   useEffect(() => {
     const token = cookies.get("accessToken");
@@ -28,7 +28,7 @@ export const ProfileOrders: FC = () => {
     }
   }, [dispatch]);
 
-  const userOrders = useSelector((state: RootState) => state.userOrders.orders);
+  const userOrders = useSelectorHook((state) => state.userOrders.orders);
 
   return (
     <div className={styles.profileOrders}>

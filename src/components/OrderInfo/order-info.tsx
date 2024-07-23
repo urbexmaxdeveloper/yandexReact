@@ -5,18 +5,16 @@ import { FC } from "react";
 import cn from "classnames";
 import { FormattedDate } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
 import { IOrder } from "../types/ingredient-types";
 import { API, ORDER_STATUS } from "../utils/constants";
 import { RootState } from "../services/store/store";
+import { useSelectorHook } from "../services/store/hooks";
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
-  const feedOrder = useSelector((state: RootState) => state.feedOrders.orders);
-  const userOrder = useSelector((state: RootState) => state.userOrders.orders);
-  const ingredients = useSelector(
-    (state: RootState) => state.ingredients.ingredients
-  );
+  const feedOrder = useSelectorHook((state) => state.feedOrders.orders);
+  const userOrder = useSelectorHook((state) => state.userOrders.orders);
+  const ingredients = useSelectorHook((state) => state.ingredients.ingredients);
 
   const [currentOrder, setCurrentOrder] = useState<IOrder | null>(null);
 

@@ -1,6 +1,5 @@
 import { FC, memo, useEffect, useState } from "react";
 import { useDrag } from "react-dnd";
-import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import {
   CurrencyIcon,
@@ -10,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 import { IIngredient } from "../../types/ingredient-types";
 
 import styles from "./ingredient-card.module.css";
-import { RootState } from "../../services/store/store";
+import { useSelectorHook } from "../../services/store/hooks";
 
 type IngredientCardProps = {
   ingredient: IIngredient;
@@ -22,11 +21,11 @@ const IngredientCard: FC<IngredientCardProps> = memo(({ ingredient }) => {
   const location = useLocation();
   const { name, price, image } = ingredient;
 
-  const selectedBun = useSelector(
-    (state: RootState) => state.burgerConstructor.selectedBun
+  const selectedBun = useSelectorHook(
+    (state) => state.burgerConstructor.selectedBun
   );
-  const selectedIngredients = useSelector(
-    (state: RootState) => state.burgerConstructor.selectedIngredients
+  const selectedIngredients = useSelectorHook(
+    (state) => state.burgerConstructor.selectedIngredients
   );
 
   const [{ isDrag }, dragRef] = useDrag({

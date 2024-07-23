@@ -1,19 +1,18 @@
 import { FC, useEffect } from "react";
 import styles from "./feed.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import {
   wsOrdersConnect,
   wsOrdersDisconnect,
 } from "../../services/slices/feed-orders/feed-orders";
 import { WEBSOCKET_API } from "../../utils/constants";
-import { RootState } from "../../services/store/store";
 import { OrderFeed } from "../../OrderFeed/order-feed";
 import { OrderStatistic } from "../../OrderStatistic/order-statistic";
+import { useDispatchHook, useSelectorHook } from "../../services/store/hooks";
 
 export const Feed: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatchHook();
 
-  const allOrders = useSelector((state: RootState) => state.feedOrders.orders);
+  const allOrders = useSelectorHook((state) => state.feedOrders.orders);
   useEffect(() => {
     const url = `${WEBSOCKET_API.baseUrl}${WEBSOCKET_API.endpoints.allOrders}`;
     dispatch(wsOrdersConnect(url));

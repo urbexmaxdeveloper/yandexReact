@@ -4,7 +4,7 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate } from "react-router";
-import { useForm } from "../../hooks/use-form";
+import { useForm } from "../../../hooks/use-form";
 import { ROUTE } from "../../utils/constants";
 import { Form } from "../../Form/form";
 import { ForgotLinks } from "../../Form/form-links/form-links";

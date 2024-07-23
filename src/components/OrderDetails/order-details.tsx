@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./order-details.module.css";
-import PropTypes from "prop-types";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 interface OrderDetailsProps {
@@ -29,10 +28,6 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ orderNumber }) => {
       </div>
     </div>
   );
-};
-
-OrderDetails.propTypes = {
-  orderNumber: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;

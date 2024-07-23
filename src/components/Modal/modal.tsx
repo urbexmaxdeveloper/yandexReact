@@ -1,5 +1,4 @@
 import modalStyles from "./modal.module.css";
-import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { createPortal } from "react-dom";
 import { FC, useCallback, useEffect, PropsWithChildren } from "react";
@@ -49,11 +48,6 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({
     </div>,
     document.getElementById("modal")!
   );
-};
-
-Modal.propTypes = {
-  title: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default Modal;

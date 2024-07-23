@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { useNavigate } from "react-router";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -17,10 +16,9 @@ import { handleAndPlaceOrder } from "../services/slices/order-post-slice/order-p
 import { ROUTE } from "../utils/constants";
 import { SelectedIngredient } from "./selected-ingredient/selected-ingredient";
 import { SelectedBun } from "./selected-bun/selected-bun";
-import { RootState } from "../services/store/store";
 import { TIngredient } from "../utils/tab-array";
 import { IIngredientsWithIdx } from "../types/ingredient-types";
-import { useDispatchHook } from "../services/store/hooks";
+import { useDispatchHook, useSelectorHook } from "../services/store/hooks";
 
 type TCollectedProps = {
   isHover: boolean;
@@ -31,22 +29,18 @@ const BurgerConstructor: React.FC = () => {
   const dispatch = useDispatchHook();
   const navigate = useNavigate();
 
-  const data = useSelector((store: RootState) => store.ingredients.ingredients);
-  const selectedBun = useSelector(
-    (store: RootState) => store.burgerConstructor.selectedBun
+  const data = useSelectorHook((store) => store.ingredients.ingredients);
+  const selectedBun = useSelectorHook(
+    (store) => store.burgerConstructor.selectedBun
   );
-  const selectedIngredients = useSelector(
-    (store: RootState) => store.burgerConstructor.selectedIngredients
+  const selectedIngredients = useSelectorHook(
+    (store) => store.burgerConstructor.selectedIngredients
   );
-  const orderList = useSelector(
-    (store: RootState) => store.postOrder.orderList
-  );
-  const postRequest = useSelector(
-    (store: RootState) => store.postOrder.postRequest
-  );
-  const user = useSelector((store: RootState) => store.user.user);
-  const totalPrice = useSelector(
-    (store: RootState) => store.burgerConstructor.totalPrice
+  const orderList = useSelectorHook((store) => store.postOrder.orderList);
+  const postRequest = useSelectorHook((store) => store.postOrder.postRequest);
+  const user = useSelectorHook((store) => store.user.user);
+  const totalPrice = useSelectorHook(
+    (store) => store.burgerConstructor.totalPrice
   );
 
   const [showModal, setShowModal] = useState(false);
