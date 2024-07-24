@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { ROUTE } from "../utils/constants";
+import { ROUTE } from "../components/utils/constants";
+import { useDispatchHook } from "../components/services/store/hooks";
 
 export interface FormState {
   [key: string]: string;
@@ -9,7 +9,7 @@ export interface FormState {
 
 export const useForm = <T extends FormState>(initialState: T) => {
   const [formState, setFormState] = useState<T>(initialState);
-  const dispatch = useDispatch();
+  const dispatch = useDispatchHook();
   const navigate = useNavigate();
 
   const onChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

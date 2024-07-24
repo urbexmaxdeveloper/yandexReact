@@ -3,6 +3,7 @@ import { request } from "../../../utils/burger-api";
 import { API } from "../../../utils/constants";
 import { IIngredientsWithIdx } from "../../../types/ingredient-types";
 import { IOrderResponse } from "../../../types/order-types";
+import { cookies } from "../user-slice/auth";
 
 type TOrderState = {
   orderList: IOrderResponse | null;
@@ -19,16 +20,22 @@ const initialState: TOrderState = {
 export const handleAndPlaceOrder = createAsyncThunk(
   "postOrder/handleAndPlaceOrder",
   async (order: IIngredientsWithIdx[]): Promise<IOrderResponse> => {
+    const accessToken = cookies.get("accessToken");
+
     const response = await request<IOrderResponse>(
       `${API.baseUrl}${API.endpoints.order}`,
       {
         method: "POST",
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({ ingredients: order.map((item) => item._id) }),
+        body: JSON.stringify({
+          ingredients: order.map((item) => item._id),
+        }),
       }
     );
+
     return response;
   }
 );

@@ -1,12 +1,12 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { getIngredients } from "../services/slices/ingredients-slice/ingredients";
 import { checkUserAuth } from "../services/slices/user-slice/auth";
 import { ROUTE } from "../utils/constants";
-import { MainLayout } from "../../layouts/MainLayout";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
 import { OnlyAuth, OnlyUnAuth } from "../ProtectedRoute/protected-route";
 import {
+  Feed,
   ForgotPassword,
   Login,
   NotFound,
@@ -19,6 +19,8 @@ import { ProfileOrders } from "../Profile/ProfileOrders/profile-orders";
 import Modal from "../Modal/modal";
 import AppConstructor from "../AppMain/app-main";
 import { useDispatchHook } from "../services/store/hooks";
+import { OrderInfo } from "../OrderInfo/order-info";
+import MainLayout from "../../layouts/MainLayout";
 
 function App() {
   const navigate = useNavigate();
@@ -27,8 +29,12 @@ function App() {
   const background = location.state?.background;
 
   useEffect(() => {
-    dispatch(getIngredients());
-    dispatch(checkUserAuth());
+    const fetchData = async () => {
+      await dispatch(getIngredients());
+      await dispatch(checkUserAuth());
+    };
+
+    fetchData();
   }, [dispatch]);
 
   const handleCloseModal = () => {
@@ -36,13 +42,19 @@ function App() {
   };
 
   return (
-    <>
+    <React.Fragment>
       <Routes location={background || location}>
         <Route path={ROUTE.main} element={<MainLayout />}>
           <Route index element={<AppConstructor />} />
           <Route
             path={ROUTE.mainLayout.currIngredient}
             element={<IngredientDetails />}
+          />
+          <Route path={ROUTE.mainLayout.feed} element={<Feed />} />
+          <Route path={ROUTE.mainLayout.feedOrder} element={<OrderInfo />} />
+          <Route
+            path={ROUTE.userProfile.userOrders}
+            element={<OnlyAuth component={<OrderInfo />} />}
           />
           <Route
             path={ROUTE.mainLayout.login}
@@ -77,16 +89,32 @@ function App() {
       {background && (
         <Routes>
           <Route
-            path={ROUTE.mainLayout.currIngredient}
+            path={`/${ROUTE.mainLayout.currIngredient}`}
             element={
               <Modal title="Детали ингредиента" onClose={handleCloseModal}>
                 <IngredientDetails />
               </Modal>
             }
           />
+          <Route
+            path={`/${ROUTE.mainLayout.feedOrder}`}
+            element={
+              <Modal onClose={handleCloseModal}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path={`/${ROUTE.userProfile.userOrders}`}
+            element={
+              <Modal onClose={handleCloseModal}>
+                <OnlyAuth component={<OrderInfo />} />
+              </Modal>
+            }
+          />
         </Routes>
       )}
-    </>
+    </React.Fragment>
   );
 }
 

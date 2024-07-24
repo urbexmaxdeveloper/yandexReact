@@ -1,18 +1,22 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader/header";
-import { RootState } from "../components/services/store/store";
+import { useSelectorHook } from "../components/services/store/hooks";
 
-export const MainLayout: React.FC = () => {
-  const isRequestLoading = useSelector(
-    (store: RootState) => store.user.isRequestLoading
+const MainLayout: React.FC = () => {
+  const isRequestLoading = useSelectorHook(
+    (store) => store.user.isRequestLoading
+  );
+  const getIngredientsRequest = useSelectorHook(
+    (store) => store.ingredients.getIngredientsRequest
   );
 
   return (
     <>
       <AppHeader />
-      {isRequestLoading ? <p>Загрузка</p> : <Outlet />}
+      {isRequestLoading || getIngredientsRequest ? <p>Загрузка</p> : <Outlet />}
     </>
   );
 };
+
+export default MainLayout;

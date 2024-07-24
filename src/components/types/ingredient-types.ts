@@ -29,3 +29,12 @@ export interface IIngredientDetails {
   detailValue: number | null | undefined;
   detailText: string;
 }
+
+export interface IOrder {
+  _id: string;
+  number: number;
+  name: string;
+  status: string;
+  createdAt: string;
+  ingredients: string[];
+}

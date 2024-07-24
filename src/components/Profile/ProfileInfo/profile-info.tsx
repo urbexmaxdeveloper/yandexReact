@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useEffect, useState } from "react";
 import { useSelectorHook } from "../../services/store/hooks";
-import { useForm } from "../../hooks/use-form";
+import { useForm } from "../../../hooks/use-form";
 import { Buttons } from "../Buttons/buttons";
 import { editUser } from "../../services/slices/user-slice/auth";
 

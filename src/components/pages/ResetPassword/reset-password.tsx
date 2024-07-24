@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../../services/slices/user-slice/auth";
 import { ROUTE } from "../../utils/constants";
-import { useForm } from "../../hooks/use-form";
+import { useForm } from "../../../hooks/use-form";
 import { Form } from "../../Form/form";
 import { ForgotLinks } from "../../Form/form-links/form-links";
 import { IUserResetPassword } from "../../types/user-types";

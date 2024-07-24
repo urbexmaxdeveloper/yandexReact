@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Form } from "../../Form/form";
 import { RegisterLinks } from "../../Form/form-links/form-links";
-import { useForm } from "../../hooks/use-form";
+import { useForm } from "../../../hooks/use-form";
 import { userRegister } from "../../services/slices/user-slice/auth";
 
 interface IRegisterProps {}
