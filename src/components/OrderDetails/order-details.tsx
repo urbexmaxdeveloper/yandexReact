@@ -8,7 +8,7 @@ interface OrderDetailsProps {
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({ orderNumber }) => {
   return (
-    <div>
+    <div data-cy="order-details">
       <p className={`${styles.orderNum} text text_type_digits-large`}>
         {orderNumber}
       </p>

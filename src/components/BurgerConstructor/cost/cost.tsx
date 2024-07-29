@@ -7,7 +7,7 @@ interface CostProps {
 }
 
 const Cost: FC<CostProps> = ({ cost }) => (
-  <div className={costStyles.cost_label}>
+  <div data-cy="total-price" className={costStyles.cost_label}>
     <p className="text text_type_digits-medium">{cost}</p>
     <CurrencyIcon type="primary" />
   </div>

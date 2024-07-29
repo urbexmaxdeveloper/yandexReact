@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IWsOrder, IWsOrders } from "../../../types/order-types";
 
-const initialState = {
+export const initialState = {
   wsConnected: false,
   orders: [] as IWsOrder[],
   error: null as string | null,

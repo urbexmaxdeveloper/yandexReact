@@ -7,7 +7,7 @@ type TSelectedState = {
   totalPrice: number;
 };
 
-const initialState: TSelectedState = {
+export const initialState: TSelectedState = {
   selectedBun: null,
   selectedIngredients: [],
   totalPrice: 0,

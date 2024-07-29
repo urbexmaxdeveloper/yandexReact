@@ -92,7 +92,7 @@ const BurgerConstructor: React.FC = () => {
 
   return (
     <>
-      <div ref={dropRef}>
+      <div data-cy="constructor" ref={dropRef}>
         <SelectedBun
           ingredientType={ingredientType}
           isHover={isHover}
@@ -135,6 +135,7 @@ const BurgerConstructor: React.FC = () => {
           size="medium"
           onClick={handlePostOrder}
           disabled={!selectedBun}
+          data-cy="order-btn"
         >
           Оформить заказ
         </Button>
