@@ -5,7 +5,7 @@ interface ModalIngredientState {
   detailIngredient: IIngredient | null;
 }
 
-const initialState: ModalIngredientState = {
+export const initialState: ModalIngredientState = {
   detailIngredient: null,
 };
 

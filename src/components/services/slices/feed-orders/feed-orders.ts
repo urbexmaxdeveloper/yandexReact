@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IWsOrder, IWsOrders } from "../../../types/order-types";
 
-type TFeedOrdersState = {
+export type TFeedOrdersState = {
   wsConnected: boolean;
   orders: IWsOrder[];
   error: string | null;
   orderResponse: IWsOrders | null;
 };
 
-const initialState: TFeedOrdersState = {
+export const initialState: TFeedOrdersState = {
   wsConnected: false,
   orders: [],
   error: null,
